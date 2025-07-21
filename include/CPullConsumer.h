@@ -46,6 +46,8 @@ ROCKETMQCLIENT_API int SetPullConsumerSessionCredentials(CPullConsumer* consumer
 ROCKETMQCLIENT_API int SetPullConsumerLogPath(CPullConsumer* consumer, const char* logPath);
 ROCKETMQCLIENT_API int SetPullConsumerLogFileNumAndSize(CPullConsumer* consumer, int fileNum, long fileSize);
 ROCKETMQCLIENT_API int SetPullConsumerLogLevel(CPullConsumer* consumer, CLogLevel level);
+ROCKETMQCLIENT_API int SetPullConsumerSsl(CPullConsumer* consumer, int enableSsl);
+ROCKETMQCLIENT_API int SetPullConsumerSslPropertyFile(CPullConsumer* consumer, const char* sslPropertyFile);
 
 ROCKETMQCLIENT_API int FetchSubscriptionMessageQueues(CPullConsumer* consumer,
                                                       const char* topic,

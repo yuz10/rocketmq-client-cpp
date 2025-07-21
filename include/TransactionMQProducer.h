@@ -81,6 +81,10 @@ class ROCKETMQCLIENT_API TransactionMQProducer {
   void setLogFileSizeAndNum(int fileNum, long perFileSize);  // perFileSize is MB unit
   void setMessageTrace(bool messageTrace);
   bool getMessageTrace() const;
+  void setEnableSsl(bool enableSsl);
+  bool getEnableSsl() const;
+  void setSslPropertyFile(const std::string& sslPropertyFile);
+  const std::string& getSslPropertyFile() const;
   std::shared_ptr<TransactionListener> getTransactionListener();
   void setTransactionListener(TransactionListener* listener);
   TransactionSendResult sendMessageInTransaction(MQMessage& msg, void* arg);

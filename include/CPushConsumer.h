@@ -60,6 +60,8 @@ ROCKETMQCLIENT_API int SetPushConsumerMessageModel(CPushConsumer* consumer, CMes
 ROCKETMQCLIENT_API int SetPushConsumerMaxCacheMessageSize(CPushConsumer* consumer, int maxCacheSize);
 ROCKETMQCLIENT_API int SetPushConsumerMaxCacheMessageSizeInMb(CPushConsumer* consumer, int maxCacheSizeInMb);
 ROCKETMQCLIENT_API int SetPushConsumerMessageTrace(CPushConsumer* consumer, CTraceModel openTrace);
+ROCKETMQCLIENT_API int SetPushConsumerSsl(CPushConsumer* consumer, int enableSsl);
+ROCKETMQCLIENT_API int SetPushConsumerSslPropertyFile(CPushConsumer* consumer, const char* sslPropertyFile);
 
 #ifdef __cplusplus
 }

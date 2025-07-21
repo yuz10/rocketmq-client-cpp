@@ -166,6 +166,18 @@ void TransactionMQProducer::setMessageTrace(bool messageTrace) {
 bool TransactionMQProducer::getMessageTrace() const {
   return impl->getMessageTrace();
 }
+void TransactionMQProducer::setEnableSsl(bool enableSsl) {
+  impl->setEnableSsl(enableSsl);
+}
+bool TransactionMQProducer::getEnableSsl() const {
+  return impl->getEnableSsl();
+}
+void TransactionMQProducer::setSslPropertyFile(const std::string& sslPropertyFile) {
+  impl->setSslPropertyFile(sslPropertyFile);
+}
+const std::string& TransactionMQProducer::getSslPropertyFile() const {
+  return impl->getSslPropertyFile();
+}
 std::shared_ptr<TransactionListener> TransactionMQProducer::getTransactionListener() {
   return impl->getTransactionListener();
 }

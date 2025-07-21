@@ -306,6 +306,24 @@ int SetPushConsumerMessageTrace(CPushConsumer* consumer, CTraceModel openTrace) 
   ((DefaultMQPushConsumer*)consumer)->setMessageTrace(messageTrace);
   return OK;
 }
+
+int SetPushConsumerSsl(CPushConsumer* consumer, int enableSsl) {
+  if (consumer == NULL) {
+    return NULL_POINTER;
+  }
+  bool ssl = enableSsl != 0;
+  ((DefaultMQPushConsumer*)consumer)->setEnableSsl(ssl);
+  return OK;
+}
+
+int SetPushConsumerSslPropertyFile(CPushConsumer* consumer, const char* sslPropertyFile) {
+  if (consumer == NULL) {
+    return NULL_POINTER;
+  }
+  ((DefaultMQPushConsumer*)consumer)->setSslPropertyFile(sslPropertyFile);
+  return OK;
+}
+
 #ifdef __cplusplus
 };
 #endif

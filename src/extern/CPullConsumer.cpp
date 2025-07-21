@@ -135,6 +135,23 @@ int SetPullConsumerLogLevel(CPullConsumer* consumer, CLogLevel level) {
   return OK;
 }
 
+int SetPullConsumerSsl(CPullConsumer* consumer, int enableSsl) {
+  if (consumer == NULL) {
+    return NULL_POINTER;
+  }
+  bool ssl = enableSsl != 0;
+  ((DefaultMQPullConsumer*)consumer)->setEnableSsl(ssl);
+  return OK;
+}
+
+int SetPullConsumerSslPropertyFile(CPullConsumer* consumer, const char* sslPropertyFile) {
+  if (consumer == NULL) {
+    return NULL_POINTER;
+  }
+  ((DefaultMQPullConsumer*)consumer)->setSslPropertyFile(sslPropertyFile);
+  return OK;
+}
+
 int FetchSubscriptionMessageQueues(CPullConsumer* consumer, const char* topic, CMessageQueue** mqs, int* size) {
   if (consumer == NULL) {
     return NULL_POINTER;

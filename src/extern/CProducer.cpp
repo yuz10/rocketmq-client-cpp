@@ -816,6 +816,44 @@ int SetProducerMessageTrace(CProducer* producer, CTraceModel openTrace) {
   }
   return OK;
 }
+
+int SetProducerSsl(CProducer* producer, int enableSsl) {
+  if (producer == NULL) {
+    return NULL_POINTER;
+  }
+  DefaultProducer* defaultMQProducer = (DefaultProducer*)producer;
+  bool ssl = enableSsl != 0;
+  try {
+    if (CAPI_C_PRODUCER_TYPE_TRANSACTION == defaultMQProducer->producerType) {
+      defaultMQProducer->innerTransactionProducer->setEnableSsl(ssl);
+    } else {
+      defaultMQProducer->innerProducer->setEnableSsl(ssl);
+    }
+  } catch (exception& e) {
+    MQClientErrorContainer::setErr(string(e.what()));
+    return PRODUCER_START_FAILED;
+  }
+  return OK;
+}
+
+int SetProducerSslPropertyFile(CProducer* producer, const char* sslPropertyFile) {
+  if (producer == NULL) {
+    return NULL_POINTER;
+  }
+  DefaultProducer* defaultMQProducer = (DefaultProducer*)producer;
+  try {
+    if (CAPI_C_PRODUCER_TYPE_TRANSACTION == defaultMQProducer->producerType) {
+      defaultMQProducer->innerTransactionProducer->setSslPropertyFile(sslPropertyFile);
+    } else {
+      defaultMQProducer->innerProducer->setSslPropertyFile(sslPropertyFile);
+    }
+  } catch (exception& e) {
+    MQClientErrorContainer::setErr(string(e.what()));
+    return PRODUCER_START_FAILED;
+  }
+  return OK;
+}
+
 #ifdef __cplusplus
 };
 #endif

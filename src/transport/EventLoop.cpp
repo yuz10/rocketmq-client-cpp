@@ -124,6 +124,7 @@ bool EventLoop::CreateSslContext(const std::string& ssl_property_file) {
   std::string client_key_passwd = DEFAULT_CLIENT_KEY_PASSWD;
   std::string client_cert_file = DEFAULT_CLIENT_CERT_FILE;
   std::string ca_cert_file = DEFAULT_CA_CERT_FILE;
+  std::string verify = "true";
   auto properties = UtilAll::ReadProperties(ssl_property_file);
   if (!properties.empty()) {
     if (properties.find("tls.client.keyPath") != properties.end()) {
@@ -138,13 +139,22 @@ bool EventLoop::CreateSslContext(const std::string& ssl_property_file) {
     if (properties.find("tls.client.trustCertPath") != properties.end()) {
       ca_cert_file = properties["tls.client.trustCertPath"];
     }
+    if (properties.find("tls.client.verify") != properties.end()) {
+      verify = properties["tls.client.verify"];
+      boost::algorithm::trim(verify);
+      boost::algorithm::to_lower(verify);
+    }
   } else {
     LOG_WARN(
         "The tls properties file is not specified or empty. "
         "Set it by modifying the api of setTlsPropertyFile and fill the configuration content.");
   }
 
-  SSL_CTX_set_verify(m_sslCtx.get(), SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT, NULL);
+  if (verify == "false") {
+    SSL_CTX_set_verify(m_sslCtx.get(), SSL_VERIFY_NONE, NULL);
+  } else {
+    SSL_CTX_set_verify(m_sslCtx.get(), SSL_VERIFY_PEER | SSL_VERIFY_FAIL_IF_NO_PEER_CERT, NULL);
+  }
   SSL_CTX_set_mode(m_sslCtx.get(), SSL_MODE_AUTO_RETRY);
 
   if (client_key_passwd.empty()) {
