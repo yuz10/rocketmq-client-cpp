@@ -139,8 +139,8 @@ bool EventLoop::CreateSslContext(const std::string& ssl_property_file) {
     if (properties.find("tls.client.trustCertPath") != properties.end()) {
       ca_cert_file = properties["tls.client.trustCertPath"];
     }
-    if (properties.find("tls.client.verify") != properties.end()) {
-      verify = properties["tls.client.verify"];
+    if (properties.find("tls.client.authServer") != properties.end()) {
+      verify = properties["tls.client.authServer"];
       boost::algorithm::trim(verify);
       boost::algorithm::to_lower(verify);
     }
